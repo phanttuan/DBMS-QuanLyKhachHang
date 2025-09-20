@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -12,9 +14,99 @@ namespace _23110355_PhanVietTuan_HQTCSDL_DoAnCuoiKy
 {
     public partial class frmLichSuMuaHang : Form
     {
-        public frmLichSuMuaHang()
+        public string conn;
+        public int maKH;
+        public frmLichSuMuaHang(string conn, int maKH)
         {
             InitializeComponent();
+            this.conn = conn;
+            this.maKH = maKH;
+            lsTuNgayDtp.Value = DateTime.Now;
+            lsDenNgayDtp.Value = DateTime.Now;
+        }
+
+        public void LoadLichSuMuaHang(int maKH, DateTime tuNgay, DateTime denNgay){
+            using (SqlConnection sqlConn = new SqlConnection(conn)) {
+                sqlConn.Open();
+                SqlCommand cmd = new SqlCommand("sp_LichSuMuaHang", sqlConn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@MaKH", maKH);
+                cmd.Parameters.AddWithValue("@TuNgay", tuNgay);
+                cmd.Parameters.AddWithValue("@DenNgay", denNgay);
+                SqlDataAdapter sqlDa = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                sqlDa.Fill(dt);
+                lsDgv.DataSource = dt;
+            
+            }
+        
+        }
+
+        public float TinhTongTien(string conn, int maKH, DateTime tuNgay, DateTime denNgay) {
+            using (SqlConnection sqlConn = new SqlConnection(conn))
+            {
+                sqlConn.Open();
+                SqlCommand cmd = new SqlCommand("SELECT dbo.fn_TinhTongChiTieuMotKhach(@MaKH, @TuNgay, @DenNgay)", sqlConn);
+                cmd.Parameters.AddWithValue("@MaKH", maKH);
+                cmd.Parameters.AddWithValue("@TuNgay", tuNgay);
+                cmd.Parameters.AddWithValue("@DenNgay", denNgay);
+                object tongTien = cmd.ExecuteScalar();
+                float result = Convert.ToInt64(tongTien);
+                return result;
+            }
+        }
+
+        private void frmLichSuMuaHang_Load(object sender, EventArgs e)
+        {
+            using (SqlConnection sqlConn = new SqlConnection(conn))
+            {
+                sqlConn.Open();
+                SqlCommand cmd = new SqlCommand("sp_HienThiThongTinKhachHang", sqlConn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@MaKH", maKH);
+                SqlDataAdapter sqlDa = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                sqlDa.Fill(dt);
+                if (dt.Rows.Count > 0)
+                {
+                    DataRow row = dt.Rows[0];
+                    lsMaKHTxt.Text = row["CustomerID"].ToString();
+                    lsHoTenTxt.Text = row["FullName"].ToString();
+                    string gioiTinh = row["Gender"].ToString();
+                    if (gioiTinh == "M")
+                    {
+                        lsGioiTinhCmb.SelectedItem = lsGioiTinhCmb.Items[0];
+                    }
+                    else
+                    {
+                        lsGioiTinhCmb.SelectedItem = lsGioiTinhCmb.Items[1];
+                    }
+                    lsSDTTxt.Text = row["PhoneNumber"].ToString();
+                    lsEmailTxt.Text = row["Email"].ToString();
+                    lsHangTxt.Text = row["MembershipTier"].ToString();
+                }
+
+            }
+            DateTime tuNgay = DateTime.Now;
+            tuNgay = tuNgay.AddDays(-31); //Xóa sau
+            lsTuNgayDtp.Value = tuNgay;
+            DateTime denNgay = DateTime.Now;
+            lsDenNgayDtp.Value = denNgay;
+            LoadLichSuMuaHang(maKH, tuNgay, denNgay);
+            lsTongTxt.Text = TinhTongTien(conn, maKH, tuNgay, denNgay).ToString();
+        }
+
+        private void lsLocBtn_Click(object sender, EventArgs e)
+        {
+            DateTime tuNgay = lsTuNgayDtp.Value.Date;
+            DateTime denNgay = lsDenNgayDtp.Value.Date;
+            LoadLichSuMuaHang(maKH, tuNgay, denNgay);
+            lsTongTxt.Text = TinhTongTien(conn, maKH, tuNgay, denNgay).ToString();
+        }
+
+        private void lsQuayLaiBtn_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

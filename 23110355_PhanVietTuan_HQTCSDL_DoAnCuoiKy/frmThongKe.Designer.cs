@@ -35,32 +35,40 @@
             this.tkTuNgayDtp = new System.Windows.Forms.DateTimePicker();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.tkTimBtn = new System.Windows.Forms.Button();
             this.tkLocBtn = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.tkMaKHTxt = new System.Windows.Forms.TextBox();
             this.tkXemBtn = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
+            this.tkLocNangCaoBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.tkDgv)).BeginInit();
             this.SuspendLayout();
             // 
             // tkDgv
             // 
+            this.tkDgv.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.tkDgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tkDgv.Location = new System.Drawing.Point(17, 103);
+            this.tkDgv.MultiSelect = false;
             this.tkDgv.Name = "tkDgv";
             this.tkDgv.RowHeadersWidth = 51;
             this.tkDgv.RowTemplate.Height = 24;
+            this.tkDgv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.tkDgv.Size = new System.Drawing.Size(796, 301);
             this.tkDgv.TabIndex = 0;
+            this.tkDgv.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tkDgv_CellDoubleClick);
             // 
             // tkLoaiTKCmb
             // 
             this.tkLoaiTKCmb.FormattingEnabled = true;
+            this.tkLoaiTKCmb.Items.AddRange(new object[] {
+            "Chi tiêu",
+            "Tần suất"});
             this.tkLoaiTKCmb.Location = new System.Drawing.Point(153, 18);
             this.tkLoaiTKCmb.Name = "tkLoaiTKCmb";
             this.tkLoaiTKCmb.Size = new System.Drawing.Size(180, 24);
             this.tkLoaiTKCmb.TabIndex = 3;
+            this.tkLoaiTKCmb.SelectedIndexChanged += new System.EventHandler(this.tkLoaiTKCmb_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -110,17 +118,6 @@
             this.label3.TabIndex = 8;
             this.label3.Text = "Đến";
             // 
-            // tkTimBtn
-            // 
-            this.tkTimBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(111)))), ((int)(((byte)(78)))), ((int)(((byte)(55)))));
-            this.tkTimBtn.ForeColor = System.Drawing.Color.White;
-            this.tkTimBtn.Location = new System.Drawing.Point(729, 74);
-            this.tkTimBtn.Name = "tkTimBtn";
-            this.tkTimBtn.Size = new System.Drawing.Size(84, 23);
-            this.tkTimBtn.TabIndex = 9;
-            this.tkTimBtn.Text = "Tìm";
-            this.tkTimBtn.UseVisualStyleBackColor = false;
-            // 
             // tkLocBtn
             // 
             this.tkLocBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(111)))), ((int)(((byte)(78)))), ((int)(((byte)(55)))));
@@ -131,6 +128,7 @@
             this.tkLocBtn.TabIndex = 10;
             this.tkLocBtn.Text = "Lọc";
             this.tkLocBtn.UseVisualStyleBackColor = false;
+            this.tkLocBtn.Click += new System.EventHandler(this.tkLocBtn_Click);
             // 
             // label4
             // 
@@ -159,6 +157,7 @@
             this.tkXemBtn.TabIndex = 13;
             this.tkXemBtn.Text = "Xem chi tiết";
             this.tkXemBtn.UseVisualStyleBackColor = false;
+            this.tkXemBtn.Click += new System.EventHandler(this.tkXemBtn_Click);
             // 
             // label5
             // 
@@ -170,17 +169,29 @@
             this.label5.TabIndex = 14;
             this.label5.Text = "Danh sách thống kê";
             // 
+            // tkLocNangCaoBtn
+            // 
+            this.tkLocNangCaoBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(111)))), ((int)(((byte)(78)))), ((int)(((byte)(55)))));
+            this.tkLocNangCaoBtn.ForeColor = System.Drawing.Color.White;
+            this.tkLocNangCaoBtn.Location = new System.Drawing.Point(729, 43);
+            this.tkLocNangCaoBtn.Name = "tkLocNangCaoBtn";
+            this.tkLocNangCaoBtn.Size = new System.Drawing.Size(84, 23);
+            this.tkLocNangCaoBtn.TabIndex = 15;
+            this.tkLocNangCaoBtn.Text = "Nâng cao";
+            this.tkLocNangCaoBtn.UseVisualStyleBackColor = false;
+            this.tkLocNangCaoBtn.Click += new System.EventHandler(this.tkLocNangCaoBtn_Click);
+            // 
             // frmThongKe
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(248)))), ((int)(((byte)(225)))));
             this.ClientSize = new System.Drawing.Size(829, 450);
+            this.Controls.Add(this.tkLocNangCaoBtn);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.tkXemBtn);
             this.Controls.Add(this.tkMaKHTxt);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.tkLocBtn);
-            this.Controls.Add(this.tkTimBtn);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.tkTuNgayDtp);
@@ -190,7 +201,9 @@
             this.Controls.Add(this.tkDgv);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "frmThongKe";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Thống kê";
+            this.Load += new System.EventHandler(this.frmThongKe_Load);
             ((System.ComponentModel.ISupportInitialize)(this.tkDgv)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -206,11 +219,11 @@
         private System.Windows.Forms.DateTimePicker tkTuNgayDtp;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button tkTimBtn;
         private System.Windows.Forms.Button tkLocBtn;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox tkMaKHTxt;
         private System.Windows.Forms.Button tkXemBtn;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button tkLocNangCaoBtn;
     }
 }

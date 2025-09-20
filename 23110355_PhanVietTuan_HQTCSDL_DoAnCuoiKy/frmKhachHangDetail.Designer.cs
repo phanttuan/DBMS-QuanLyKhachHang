@@ -34,14 +34,15 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.khdHoTenTxt = new System.Windows.Forms.TextBox();
-            this.khdGioiTinhTxt = new System.Windows.Forms.ComboBox();
+            this.khdGioiTinhCmb = new System.Windows.Forms.ComboBox();
             this.khdSDTTxt = new System.Windows.Forms.TextBox();
             this.khdEmailTxt = new System.Windows.Forms.TextBox();
-            this.khdLuuBtn = new System.Windows.Forms.Button();
             this.khdDongBtn = new System.Windows.Forms.Button();
             this.khdNgaySinhDtp = new System.Windows.Forms.DateTimePicker();
             this.label6 = new System.Windows.Forms.Label();
             this.khdHangTxt = new System.Windows.Forms.TextBox();
+            this.qlkhThemBtn = new System.Windows.Forms.Button();
+            this.khdSuaBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -102,13 +103,16 @@
             this.khdHoTenTxt.Size = new System.Drawing.Size(243, 22);
             this.khdHoTenTxt.TabIndex = 5;
             // 
-            // khdGioiTinhTxt
+            // khdGioiTinhCmb
             // 
-            this.khdGioiTinhTxt.FormattingEnabled = true;
-            this.khdGioiTinhTxt.Location = new System.Drawing.Point(344, 79);
-            this.khdGioiTinhTxt.Name = "khdGioiTinhTxt";
-            this.khdGioiTinhTxt.Size = new System.Drawing.Size(243, 24);
-            this.khdGioiTinhTxt.TabIndex = 6;
+            this.khdGioiTinhCmb.FormattingEnabled = true;
+            this.khdGioiTinhCmb.Items.AddRange(new object[] {
+            "Nam ",
+            "Nữ"});
+            this.khdGioiTinhCmb.Location = new System.Drawing.Point(344, 79);
+            this.khdGioiTinhCmb.Name = "khdGioiTinhCmb";
+            this.khdGioiTinhCmb.Size = new System.Drawing.Size(243, 24);
+            this.khdGioiTinhCmb.TabIndex = 6;
             // 
             // khdSDTTxt
             // 
@@ -126,29 +130,18 @@
             this.khdEmailTxt.Size = new System.Drawing.Size(243, 22);
             this.khdEmailTxt.TabIndex = 9;
             // 
-            // khdLuuBtn
-            // 
-            this.khdLuuBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(111)))), ((int)(((byte)(78)))), ((int)(((byte)(55)))));
-            this.khdLuuBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.khdLuuBtn.ForeColor = System.Drawing.Color.White;
-            this.khdLuuBtn.Location = new System.Drawing.Point(260, 318);
-            this.khdLuuBtn.Name = "khdLuuBtn";
-            this.khdLuuBtn.Size = new System.Drawing.Size(123, 49);
-            this.khdLuuBtn.TabIndex = 10;
-            this.khdLuuBtn.Text = "Lưu";
-            this.khdLuuBtn.UseVisualStyleBackColor = false;
-            // 
             // khdDongBtn
             // 
             this.khdDongBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(111)))), ((int)(((byte)(78)))), ((int)(((byte)(55)))));
             this.khdDongBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.khdDongBtn.ForeColor = System.Drawing.Color.White;
-            this.khdDongBtn.Location = new System.Drawing.Point(406, 318);
+            this.khdDongBtn.Location = new System.Drawing.Point(483, 318);
             this.khdDongBtn.Name = "khdDongBtn";
             this.khdDongBtn.Size = new System.Drawing.Size(123, 49);
             this.khdDongBtn.TabIndex = 11;
             this.khdDongBtn.Text = "Đóng";
             this.khdDongBtn.UseVisualStyleBackColor = false;
+            this.khdDongBtn.Click += new System.EventHandler(this.khdDongBtn_Click);
             // 
             // khdNgaySinhDtp
             // 
@@ -176,19 +169,46 @@
             this.khdHangTxt.Size = new System.Drawing.Size(243, 22);
             this.khdHangTxt.TabIndex = 14;
             // 
+            // qlkhThemBtn
+            // 
+            this.qlkhThemBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(111)))), ((int)(((byte)(78)))), ((int)(((byte)(55)))));
+            this.qlkhThemBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.qlkhThemBtn.ForeColor = System.Drawing.Color.White;
+            this.qlkhThemBtn.Location = new System.Drawing.Point(215, 318);
+            this.qlkhThemBtn.Name = "qlkhThemBtn";
+            this.qlkhThemBtn.Size = new System.Drawing.Size(123, 49);
+            this.qlkhThemBtn.TabIndex = 15;
+            this.qlkhThemBtn.Text = "Thêm";
+            this.qlkhThemBtn.UseVisualStyleBackColor = false;
+            this.qlkhThemBtn.Click += new System.EventHandler(this.qlkhThemBtn_Click);
+            // 
+            // khdSuaBtn
+            // 
+            this.khdSuaBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(111)))), ((int)(((byte)(78)))), ((int)(((byte)(55)))));
+            this.khdSuaBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.khdSuaBtn.ForeColor = System.Drawing.Color.White;
+            this.khdSuaBtn.Location = new System.Drawing.Point(354, 318);
+            this.khdSuaBtn.Name = "khdSuaBtn";
+            this.khdSuaBtn.Size = new System.Drawing.Size(123, 49);
+            this.khdSuaBtn.TabIndex = 16;
+            this.khdSuaBtn.Text = "Sửa";
+            this.khdSuaBtn.UseVisualStyleBackColor = false;
+            this.khdSuaBtn.Click += new System.EventHandler(this.khdSuaBtn_Click);
+            // 
             // frmKhachHangDetail
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(248)))), ((int)(((byte)(225)))));
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.khdSuaBtn);
+            this.Controls.Add(this.qlkhThemBtn);
             this.Controls.Add(this.khdHangTxt);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.khdNgaySinhDtp);
             this.Controls.Add(this.khdDongBtn);
-            this.Controls.Add(this.khdLuuBtn);
             this.Controls.Add(this.khdEmailTxt);
             this.Controls.Add(this.khdSDTTxt);
-            this.Controls.Add(this.khdGioiTinhTxt);
+            this.Controls.Add(this.khdGioiTinhCmb);
             this.Controls.Add(this.khdHoTenTxt);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -196,7 +216,9 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "frmKhachHangDetail";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Thông tin khách hàng";
+            this.Load += new System.EventHandler(this.frmKhachHangDetail_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -210,13 +232,14 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox khdHoTenTxt;
-        private System.Windows.Forms.ComboBox khdGioiTinhTxt;
+        private System.Windows.Forms.ComboBox khdGioiTinhCmb;
         private System.Windows.Forms.TextBox khdSDTTxt;
         private System.Windows.Forms.TextBox khdEmailTxt;
-        private System.Windows.Forms.Button khdLuuBtn;
         private System.Windows.Forms.Button khdDongBtn;
         private System.Windows.Forms.DateTimePicker khdNgaySinhDtp;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox khdHangTxt;
+        private System.Windows.Forms.Button qlkhThemBtn;
+        private System.Windows.Forms.Button khdSuaBtn;
     }
 }

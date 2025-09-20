@@ -33,7 +33,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.lsMaKHTxt = new System.Windows.Forms.TextBox();
-            this.lsGioiTinhTxt = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.lsDgv = new System.Windows.Forms.DataGridView();
             this.label5 = new System.Windows.Forms.Label();
@@ -50,6 +49,9 @@
             this.label11 = new System.Windows.Forms.Label();
             this.lsEmailTxt = new System.Windows.Forms.TextBox();
             this.lsQuayLaiBtn = new System.Windows.Forms.Button();
+            this.lsGioiTinhCmb = new System.Windows.Forms.ComboBox();
+            this.lsLocBtn = new System.Windows.Forms.Button();
+            this.label12 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.lsDgv)).BeginInit();
             this.SuspendLayout();
             // 
@@ -101,15 +103,6 @@
             this.lsMaKHTxt.Size = new System.Drawing.Size(223, 22);
             this.lsMaKHTxt.TabIndex = 5;
             // 
-            // lsGioiTinhTxt
-            // 
-            this.lsGioiTinhTxt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lsGioiTinhTxt.Location = new System.Drawing.Point(97, 114);
-            this.lsGioiTinhTxt.Name = "lsGioiTinhTxt";
-            this.lsGioiTinhTxt.ReadOnly = true;
-            this.lsGioiTinhTxt.Size = new System.Drawing.Size(223, 22);
-            this.lsGioiTinhTxt.TabIndex = 6;
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -142,7 +135,7 @@
             // lsTongTxt
             // 
             this.lsTongTxt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lsTongTxt.Location = new System.Drawing.Point(348, 395);
+            this.lsTongTxt.Location = new System.Drawing.Point(332, 395);
             this.lsTongTxt.Name = "lsTongTxt";
             this.lsTongTxt.ReadOnly = true;
             this.lsTongTxt.Size = new System.Drawing.Size(144, 22);
@@ -260,12 +253,52 @@
             this.lsQuayLaiBtn.TabIndex = 22;
             this.lsQuayLaiBtn.Text = "Quay lại";
             this.lsQuayLaiBtn.UseVisualStyleBackColor = false;
+            this.lsQuayLaiBtn.Click += new System.EventHandler(this.lsQuayLaiBtn_Click);
+            // 
+            // lsGioiTinhCmb
+            // 
+            this.lsGioiTinhCmb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.lsGioiTinhCmb.Enabled = false;
+            this.lsGioiTinhCmb.FormattingEnabled = true;
+            this.lsGioiTinhCmb.Items.AddRange(new object[] {
+            "Nam",
+            "Nữ"});
+            this.lsGioiTinhCmb.Location = new System.Drawing.Point(97, 115);
+            this.lsGioiTinhCmb.Name = "lsGioiTinhCmb";
+            this.lsGioiTinhCmb.Size = new System.Drawing.Size(223, 24);
+            this.lsGioiTinhCmb.TabIndex = 23;
+            // 
+            // lsLocBtn
+            // 
+            this.lsLocBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(111)))), ((int)(((byte)(78)))), ((int)(((byte)(55)))));
+            this.lsLocBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lsLocBtn.ForeColor = System.Drawing.Color.White;
+            this.lsLocBtn.Location = new System.Drawing.Point(548, 387);
+            this.lsLocBtn.Name = "lsLocBtn";
+            this.lsLocBtn.Size = new System.Drawing.Size(101, 36);
+            this.lsLocBtn.TabIndex = 24;
+            this.lsLocBtn.Text = "Lọc";
+            this.lsLocBtn.UseVisualStyleBackColor = false;
+            this.lsLocBtn.Click += new System.EventHandler(this.lsLocBtn_Click);
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(482, 398);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(39, 16);
+            this.label12.TabIndex = 25;
+            this.label12.Text = "VND";
             // 
             // frmLichSuMuaHang
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(248)))), ((int)(((byte)(225)))));
             this.ClientSize = new System.Drawing.Size(776, 450);
+            this.Controls.Add(this.label12);
+            this.Controls.Add(this.lsLocBtn);
+            this.Controls.Add(this.lsGioiTinhCmb);
             this.Controls.Add(this.lsQuayLaiBtn);
             this.Controls.Add(this.lsHangTxt);
             this.Controls.Add(this.lsSDTTxt);
@@ -282,14 +315,15 @@
             this.Controls.Add(this.label5);
             this.Controls.Add(this.lsDgv);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.lsGioiTinhTxt);
             this.Controls.Add(this.lsMaKHTxt);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lsHoTenTxt);
             this.Name = "frmLichSuMuaHang";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Lịch sử";
+            this.Load += new System.EventHandler(this.frmLichSuMuaHang_Load);
             ((System.ComponentModel.ISupportInitialize)(this.lsDgv)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -302,7 +336,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox lsMaKHTxt;
-        private System.Windows.Forms.TextBox lsGioiTinhTxt;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.DataGridView lsDgv;
         private System.Windows.Forms.Label label5;
@@ -319,5 +352,8 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox lsEmailTxt;
         private System.Windows.Forms.Button lsQuayLaiBtn;
+        private System.Windows.Forms.ComboBox lsGioiTinhCmb;
+        private System.Windows.Forms.Button lsLocBtn;
+        private System.Windows.Forms.Label label12;
     }
 }
