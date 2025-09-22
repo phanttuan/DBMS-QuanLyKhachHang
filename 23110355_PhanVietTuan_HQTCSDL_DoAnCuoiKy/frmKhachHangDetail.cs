@@ -118,20 +118,26 @@ namespace _23110355_PhanVietTuan_HQTCSDL_DoAnCuoiKy
             DateTime ngaySinh = khdNgaySinhDtp.Value;
             string email = khdEmailTxt.Text;
 
-            using (SqlConnection sqlConn = new SqlConnection(conn))
+            try
             {
-                sqlConn.Open();
-                SqlCommand cmd = new SqlCommand("sp_ThemKhachHang", sqlConn);
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@FullName", hoTen);
-                cmd.Parameters.AddWithValue("@Gender", gioiTinh);
-                cmd.Parameters.AddWithValue("@PhoneNumber", sdt);
-                cmd.Parameters.AddWithValue("@DateOfBirth", ngaySinh);
-                cmd.Parameters.AddWithValue("@Email", email);
+                using (SqlConnection sqlConn = new SqlConnection(conn))
+                {
+                    sqlConn.Open();
+                    SqlCommand cmd = new SqlCommand("sp_ThemKhachHang", sqlConn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@FullName", hoTen);
+                    cmd.Parameters.AddWithValue("@Gender", gioiTinh);
+                    cmd.Parameters.AddWithValue("@PhoneNumber", sdt);
+                    cmd.Parameters.AddWithValue("@DateOfBirth", ngaySinh);
+                    cmd.Parameters.AddWithValue("@Email", email);
 
-                cmd.ExecuteNonQuery();
-                MessageBox.Show("Thêm khách hàng thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Thêm khách hàng thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("Có lỗi SQL: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
