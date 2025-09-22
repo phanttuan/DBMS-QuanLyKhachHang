@@ -20,6 +20,35 @@ namespace _23110355_PhanVietTuan_HQTCSDL_DoAnCuoiKy
             InitializeComponent();
             this.conn = conn;
             this.maKH = maKH;
+            khdHangTxt.Enabled = false;
+            using (SqlConnection sqlConn = new SqlConnection(conn))
+            {
+                sqlConn.Open();
+                SqlCommand cmd = new SqlCommand("sp_PhanQuyenTaiKhoan", sqlConn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        int isThongKe = reader.GetInt32(reader.GetOrdinal("IsThongKe"));
+                        int isQuanLyKH = reader.GetInt32(reader.GetOrdinal("IsQuanLyKhachHang"));
+                        if (isThongKe == 1)
+                        {
+                            khdSuaBtn.Enabled = false;
+                            khdSuaBtn.BackColor = Color.Red;
+                            khdSuaBtn.Text = "Cấm";
+                            khdThemBtn.Enabled = false;
+                            khdThemBtn.BackColor = Color.Red;
+                            khdThemBtn.Text = "Cấm";
+                            khdHoTenTxt.Enabled = false;
+                            khdGioiTinhCmb.Enabled = false;
+                            khdSDTTxt.Enabled = false;
+                            khdNgaySinhDtp.Enabled = false;
+                            khdEmailTxt.Enabled = false;
+                        }
+                    }
+                }
+            };
         }
 
         private void frmKhachHangDetail_Load(object sender, EventArgs e)
@@ -38,8 +67,8 @@ namespace _23110355_PhanVietTuan_HQTCSDL_DoAnCuoiKy
                     if (dt.Rows.Count > 0)
                     {
                         DataRow row = dt.Rows[0];
-                        khdHoTenTxt.Text = row["FullName"].ToString();
-                        string gioiTinh = row["Gender"].ToString();
+                        khdHoTenTxt.Text = row["Họ tên"].ToString();
+                        string gioiTinh = row["Giới tính"].ToString();
                         if (gioiTinh == "M") {
                             khdGioiTinhCmb.SelectedItem = khdGioiTinhCmb.Items[0];
                         }
@@ -47,14 +76,18 @@ namespace _23110355_PhanVietTuan_HQTCSDL_DoAnCuoiKy
                         {
                              khdGioiTinhCmb.SelectedItem = khdGioiTinhCmb.Items[1];
                         }
-                            khdSDTTxt.Text = row["PhoneNumber"].ToString();
-                        khdNgaySinhDtp.Value = Convert.ToDateTime(row["DateOfBirth"]);
+                            khdSDTTxt.Text = row["SĐT"].ToString();
+                        khdNgaySinhDtp.Value = Convert.ToDateTime(row["Ngày sinh"]);
                         khdEmailTxt.Text = row["Email"].ToString();
-                        khdHangTxt.Text = row["MembershipTier"].ToString();
+                        khdHangTxt.Text = row["Hạng thành viên"].ToString();
 
                     }
 
                 }
+            }
+            if (!string.IsNullOrEmpty(khdHoTenTxt.Text)) {
+                khdThemBtn.Visible = false;
+                khdSuaBtn.Visible = false;
             }
             
         }
@@ -69,17 +102,17 @@ namespace _23110355_PhanVietTuan_HQTCSDL_DoAnCuoiKy
             
         }
 
-        private void qlkhThemBtn_Click(object sender, EventArgs e)
+        private void khdThemBtn_Click(object sender, EventArgs e)
         {
             string hoTen = khdHoTenTxt.Text;
             string gioiTinh;
             if (khdGioiTinhCmb.SelectedItem == khdGioiTinhCmb.Items[0])
             {
-                gioiTinh = "M";
+                gioiTinh = "Nam";
             }
             else
             {
-                gioiTinh = "F";
+                gioiTinh = "Nữ";
             }
             string sdt = khdSDTTxt.Text;
             DateTime ngaySinh = khdNgaySinhDtp.Value;
@@ -108,11 +141,11 @@ namespace _23110355_PhanVietTuan_HQTCSDL_DoAnCuoiKy
             string gioiTinh;
             if (khdGioiTinhCmb.SelectedItem == khdGioiTinhCmb.Items[0])
             {
-                gioiTinh = "M";
+                gioiTinh = "Nam";
             }
             else
             {
-                gioiTinh = "F";
+                gioiTinh = "Nữ";
             }
             string sdt = khdSDTTxt.Text;
             DateTime ngaySinh = khdNgaySinhDtp.Value;

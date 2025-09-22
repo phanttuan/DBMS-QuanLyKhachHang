@@ -18,6 +18,29 @@ namespace _23110355_PhanVietTuan_HQTCSDL_DoAnCuoiKy
         {
             InitializeComponent();
             this.conn = conn;
+            using (SqlConnection sqlConn = new SqlConnection(conn))
+            {
+                sqlConn.Open();
+                SqlCommand cmd = new SqlCommand("sp_PhanQuyenTaiKhoan", sqlConn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        int isThongKe = reader.GetInt32(reader.GetOrdinal("IsThongKe"));
+                        int isQuanLyKH = reader.GetInt32(reader.GetOrdinal("IsQuanLyKhachHang"));
+                        if (isThongKe == 1)
+                        {
+                            qlkhThemBtn.Enabled = false;
+                            qlkhThemBtn.BackColor = Color.Red;
+                            qlkhThemBtn.Text = "Cấm";
+                            qlkhXoaBtn.Enabled = false;
+                            qlkhXoaBtn.BackColor = Color.Red;
+                            qlkhXoaBtn.Text = "Cấm";
+                        }
+                    }
+                }
+            };
         }
 
         private void qlkhExitBtn_Click(object sender, EventArgs e)
@@ -49,7 +72,7 @@ namespace _23110355_PhanVietTuan_HQTCSDL_DoAnCuoiKy
         {
             if (e.RowIndex >= 0)
             {
-                int maKH = Convert.ToInt32(qlkhDgv.Rows[e.RowIndex].Cells["CustomerID"].Value);
+                int maKH = Convert.ToInt32(qlkhDgv.Rows[e.RowIndex].Cells["Mã KH"].Value);
                 frmKhachHangDetail frm = new frmKhachHangDetail(conn, maKH);
                 frm.ShowDialog();
             }
@@ -64,7 +87,7 @@ namespace _23110355_PhanVietTuan_HQTCSDL_DoAnCuoiKy
 
         private void qlkhXoaBtn_Click(object sender, EventArgs e)
         {
-            int maKH = Convert.ToInt32(qlkhDgv.SelectedRows[0].Cells["CustomerID"].Value);
+            int maKH = Convert.ToInt32(qlkhDgv.SelectedRows[0].Cells["Mã KH"].Value);
             using (SqlConnection sqlConn = new SqlConnection(conn))
             {
                 sqlConn.Open();
@@ -85,7 +108,11 @@ namespace _23110355_PhanVietTuan_HQTCSDL_DoAnCuoiKy
 
         private void qlkhTimKiemBtn_Click(object sender, EventArgs e)
         {
-            int maKH = Convert.ToInt32(qlkhMaKHTxt.Text);
+            int maKH;
+            if (string.IsNullOrEmpty(qlkhMaKHTxt.Text))
+                maKH = 0;
+            else
+                maKH = Convert.ToInt32(qlkhMaKHTxt.Text);
             using (SqlConnection sqlConn = new SqlConnection(conn))
             {
                 sqlConn.Open();

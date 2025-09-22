@@ -53,7 +53,7 @@ namespace _23110355_PhanVietTuan_HQTCSDL_DoAnCuoiKy
             DateTime tuNgay = tkTuNgayDtp.Value.Date;
             DateTime denNgay = tkDenNgayDtp.Value.Date;
             int maKH;
-            if (string.IsNullOrWhiteSpace(tkMaKHTxt.Text))
+            if (string.IsNullOrEmpty(tkMaKHTxt.Text))
             {
                 maKH = 0;
             }
@@ -87,20 +87,14 @@ namespace _23110355_PhanVietTuan_HQTCSDL_DoAnCuoiKy
         {
             if(tkLoaiTKCmb.SelectedIndex == 0)
             {
-                DateTime tuNgay = DateTime.Now; //Xóa sau
-                tuNgay = tuNgay.AddDays(-31); //Xóa sau
-                tkTuNgayDtp.Value = tuNgay; //Xóa sau
-                DateTime denNgay = DateTime.Now;
-                tkDenNgayDtp.Value = denNgay;
+                DateTime tuNgay = tkTuNgayDtp.Value.Date;
+                DateTime denNgay = tkDenNgayDtp.Value.Date;
                 LoadChiTieu(0, tuNgay, denNgay);
             }
             else
             {
-                DateTime tuNgay = DateTime.Now; //Xóa sau
-                tuNgay = tuNgay.AddDays(-31); //Xóa sau
-                tkTuNgayDtp.Value = tuNgay; //Xóa sau
-                DateTime denNgay = DateTime.Now;
-                tkDenNgayDtp.Value = denNgay;
+                DateTime tuNgay = tkTuNgayDtp.Value.Date;
+                DateTime denNgay = tkDenNgayDtp.Value.Date;
                 LoadTanSuatChiTieu(0, tuNgay, denNgay);
             }
         }
@@ -109,8 +103,10 @@ namespace _23110355_PhanVietTuan_HQTCSDL_DoAnCuoiKy
         {
             if (tkDgv.SelectedRows.Count > 0)
             {
-                int maKH = Convert.ToInt32(tkDgv.SelectedRows[0].Cells["CustomerID"].Value);
-                frmLichSuMuaHang lichSuForm = new frmLichSuMuaHang(conn, maKH);
+                int maKH = Convert.ToInt32(tkDgv.SelectedRows[0].Cells["Mã KH"].Value);
+                DateTime tuNgay = tkTuNgayDtp.Value.Date;
+                DateTime denNgay = tkDenNgayDtp.Value.Date;
+                frmLichSuMuaHang lichSuForm = new frmLichSuMuaHang(conn, maKH, tuNgay, denNgay);
                 lichSuForm.ShowDialog();
             }
         }
@@ -119,8 +115,10 @@ namespace _23110355_PhanVietTuan_HQTCSDL_DoAnCuoiKy
         {
             if (tkDgv.SelectedRows.Count > 0)
             {
-                int maKH = Convert.ToInt32(tkDgv.SelectedRows[0].Cells["CustomerID"].Value);
-                frmLichSuMuaHang lichSuForm = new frmLichSuMuaHang(conn, maKH);
+                int maKH = Convert.ToInt32(tkDgv.SelectedRows[0].Cells["Mã KH"].Value);
+                DateTime tuNgay = tkTuNgayDtp.Value.Date;
+                DateTime denNgay = tkDenNgayDtp.Value.Date;
+                frmLichSuMuaHang lichSuForm = new frmLichSuMuaHang(conn, maKH, tuNgay, denNgay);
                 lichSuForm.ShowDialog();
             }
         }

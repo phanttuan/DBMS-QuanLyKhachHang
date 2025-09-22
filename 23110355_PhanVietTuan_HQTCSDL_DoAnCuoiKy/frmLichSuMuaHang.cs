@@ -16,13 +16,13 @@ namespace _23110355_PhanVietTuan_HQTCSDL_DoAnCuoiKy
     {
         public string conn;
         public int maKH;
-        public frmLichSuMuaHang(string conn, int maKH)
+        public frmLichSuMuaHang(string conn, int maKH, DateTime tuNgay, DateTime denNgay)
         {
             InitializeComponent();
             this.conn = conn;
             this.maKH = maKH;
-            lsTuNgayDtp.Value = DateTime.Now;
-            lsDenNgayDtp.Value = DateTime.Now;
+            lsTuNgayDtp.Value = tuNgay;
+            lsDenNgayDtp.Value =denNgay;
         }
 
         public void LoadLichSuMuaHang(int maKH, DateTime tuNgay, DateTime denNgay){
@@ -70,10 +70,10 @@ namespace _23110355_PhanVietTuan_HQTCSDL_DoAnCuoiKy
                 if (dt.Rows.Count > 0)
                 {
                     DataRow row = dt.Rows[0];
-                    lsMaKHTxt.Text = row["CustomerID"].ToString();
-                    lsHoTenTxt.Text = row["FullName"].ToString();
-                    string gioiTinh = row["Gender"].ToString();
-                    if (gioiTinh == "M")
+                    lsMaKHTxt.Text = row["Mã KH"].ToString();
+                    lsHoTenTxt.Text = row["Họ tên"].ToString();
+                    string gioiTinh = row["Giới tính"].ToString();
+                    if (gioiTinh == "Nam")
                     {
                         lsGioiTinhCmb.SelectedItem = lsGioiTinhCmb.Items[0];
                     }
@@ -81,17 +81,14 @@ namespace _23110355_PhanVietTuan_HQTCSDL_DoAnCuoiKy
                     {
                         lsGioiTinhCmb.SelectedItem = lsGioiTinhCmb.Items[1];
                     }
-                    lsSDTTxt.Text = row["PhoneNumber"].ToString();
+                    lsSDTTxt.Text = row["SĐT"].ToString();
                     lsEmailTxt.Text = row["Email"].ToString();
-                    lsHangTxt.Text = row["MembershipTier"].ToString();
+                    lsHangTxt.Text = row["Hạng thành viên"].ToString();
                 }
 
             }
-            DateTime tuNgay = DateTime.Now;
-            tuNgay = tuNgay.AddDays(-31); //Xóa sau
-            lsTuNgayDtp.Value = tuNgay;
-            DateTime denNgay = DateTime.Now;
-            lsDenNgayDtp.Value = denNgay;
+            DateTime tuNgay =lsTuNgayDtp.Value.Date;
+            DateTime denNgay = lsDenNgayDtp.Value.Date;
             LoadLichSuMuaHang(maKH, tuNgay, denNgay);
             lsTongTxt.Text = TinhTongTien(conn, maKH, tuNgay, denNgay).ToString();
         }

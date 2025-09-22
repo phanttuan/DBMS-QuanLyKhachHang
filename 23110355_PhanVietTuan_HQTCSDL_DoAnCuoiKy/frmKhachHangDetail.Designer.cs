@@ -41,7 +41,7 @@
             this.khdNgaySinhDtp = new System.Windows.Forms.DateTimePicker();
             this.label6 = new System.Windows.Forms.Label();
             this.khdHangTxt = new System.Windows.Forms.TextBox();
-            this.qlkhThemBtn = new System.Windows.Forms.Button();
+            this.khdThemBtn = new System.Windows.Forms.Button();
             this.khdSuaBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -169,18 +169,18 @@
             this.khdHangTxt.Size = new System.Drawing.Size(243, 22);
             this.khdHangTxt.TabIndex = 14;
             // 
-            // qlkhThemBtn
+            // khdThemBtn
             // 
-            this.qlkhThemBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(111)))), ((int)(((byte)(78)))), ((int)(((byte)(55)))));
-            this.qlkhThemBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.qlkhThemBtn.ForeColor = System.Drawing.Color.White;
-            this.qlkhThemBtn.Location = new System.Drawing.Point(215, 318);
-            this.qlkhThemBtn.Name = "qlkhThemBtn";
-            this.qlkhThemBtn.Size = new System.Drawing.Size(123, 49);
-            this.qlkhThemBtn.TabIndex = 15;
-            this.qlkhThemBtn.Text = "Thêm";
-            this.qlkhThemBtn.UseVisualStyleBackColor = false;
-            this.qlkhThemBtn.Click += new System.EventHandler(this.qlkhThemBtn_Click);
+            this.khdThemBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(111)))), ((int)(((byte)(78)))), ((int)(((byte)(55)))));
+            this.khdThemBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.khdThemBtn.ForeColor = System.Drawing.Color.White;
+            this.khdThemBtn.Location = new System.Drawing.Point(215, 318);
+            this.khdThemBtn.Name = "khdThemBtn";
+            this.khdThemBtn.Size = new System.Drawing.Size(123, 49);
+            this.khdThemBtn.TabIndex = 15;
+            this.khdThemBtn.Text = "Thêm";
+            this.khdThemBtn.UseVisualStyleBackColor = false;
+            this.khdThemBtn.Click += new System.EventHandler(this.khdThemBtn_Click);
             // 
             // khdSuaBtn
             // 
@@ -201,7 +201,7 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(248)))), ((int)(((byte)(225)))));
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.khdSuaBtn);
-            this.Controls.Add(this.qlkhThemBtn);
+            this.Controls.Add(this.khdThemBtn);
             this.Controls.Add(this.khdHangTxt);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.khdNgaySinhDtp);
@@ -239,7 +239,7 @@
         private System.Windows.Forms.DateTimePicker khdNgaySinhDtp;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox khdHangTxt;
-        private System.Windows.Forms.Button qlkhThemBtn;
+        private System.Windows.Forms.Button khdThemBtn;
         private System.Windows.Forms.Button khdSuaBtn;
     }
 }

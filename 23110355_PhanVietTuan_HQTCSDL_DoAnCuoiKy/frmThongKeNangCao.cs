@@ -48,7 +48,7 @@ namespace _23110355_PhanVietTuan_HQTCSDL_DoAnCuoiKy
                 sqlConn.Open();
                 SqlCommand cmd = new SqlCommand("SELECT * FROM dbo.fn_ThongKeKhachMoiTheoQuy(@Quy, @Nam)",sqlConn);
                 cmd.Parameters.AddWithValue("@Quy", quy);
-                cmd.Parameters.AddWithValue("Nam", nam);
+                cmd.Parameters.AddWithValue("@Nam", nam);
                 SqlDataAdapter sqlDa = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 sqlDa.Fill(dt);
@@ -92,7 +92,7 @@ namespace _23110355_PhanVietTuan_HQTCSDL_DoAnCuoiKy
                 sqlConn.Open();
                 SqlCommand cmd = new SqlCommand("SELECT * FROM dbo.fn_ThongKeKhachNgungMua(@Quy, @Nam)", sqlConn);
                 cmd.Parameters.AddWithValue("@Quy", quy);
-                cmd.Parameters.AddWithValue("Nam", nam);
+                cmd.Parameters.AddWithValue("@Nam", nam);
                 SqlDataAdapter sqlDa = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 sqlDa.Fill(dt);

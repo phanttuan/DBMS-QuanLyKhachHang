@@ -1,6 +1,6 @@
 ﻿namespace _23110355_PhanVietTuan_HQTCSDL_DoAnCuoiKy
 {
-    partial class Form1
+    partial class frmMenu
     {
         /// <summary>
         /// Required designer variable.
