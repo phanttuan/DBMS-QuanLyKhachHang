@@ -69,7 +69,7 @@ namespace _23110355_PhanVietTuan_HQTCSDL_DoAnCuoiKy
                         DataRow row = dt.Rows[0];
                         khdHoTenTxt.Text = row["Họ tên"].ToString();
                         string gioiTinh = row["Giới tính"].ToString();
-                        if (gioiTinh == "M") {
+                        if (gioiTinh == "Nam") {
                             khdGioiTinhCmb.SelectedItem = khdGioiTinhCmb.Items[0];
                         }
                         else
@@ -85,11 +85,12 @@ namespace _23110355_PhanVietTuan_HQTCSDL_DoAnCuoiKy
 
                 }
             }
-            if (!string.IsNullOrEmpty(khdHoTenTxt.Text)) {
-                khdThemBtn.Visible = false;
+            if (string.IsNullOrWhiteSpace(khdHoTenTxt.Text)) {
                 khdSuaBtn.Visible = false;
             }
-            
+            else 
+                 khdThemBtn.Visible = false;
+
         }
 
         private void khdDongBtn_Click(object sender, EventArgs e)
@@ -105,6 +106,11 @@ namespace _23110355_PhanVietTuan_HQTCSDL_DoAnCuoiKy
         private void khdThemBtn_Click(object sender, EventArgs e)
         {
             string hoTen = khdHoTenTxt.Text;
+            if(string.IsNullOrWhiteSpace(hoTen))
+            {
+                MessageBox.Show("Họ tên không được để trống!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             string gioiTinh;
             if (khdGioiTinhCmb.SelectedItem == khdGioiTinhCmb.Items[0])
             {
@@ -115,9 +121,18 @@ namespace _23110355_PhanVietTuan_HQTCSDL_DoAnCuoiKy
                 gioiTinh = "Nữ";
             }
             string sdt = khdSDTTxt.Text;
+            if (string.IsNullOrWhiteSpace(sdt))
+            {
+                MessageBox.Show("Số điện thoại không được để trống!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             DateTime ngaySinh = khdNgaySinhDtp.Value;
             string email = khdEmailTxt.Text;
-
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                MessageBox.Show("Email không được để trống!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             try
             {
                 using (SqlConnection sqlConn = new SqlConnection(conn))
@@ -137,7 +152,7 @@ namespace _23110355_PhanVietTuan_HQTCSDL_DoAnCuoiKy
             }
             catch (SqlException ex)
             {
-                MessageBox.Show("Có lỗi SQL: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -145,32 +160,32 @@ namespace _23110355_PhanVietTuan_HQTCSDL_DoAnCuoiKy
         {
             string hoTen = khdHoTenTxt.Text;
             string gioiTinh;
-            if (khdGioiTinhCmb.SelectedItem == khdGioiTinhCmb.Items[0])
-            {
-                gioiTinh = "Nam";
-            }
-            else
-            {
-                gioiTinh = "Nữ";
-            }
+            gioiTinh = khdGioiTinhCmb.SelectedItem.ToString().Trim();
             string sdt = khdSDTTxt.Text;
             DateTime ngaySinh = khdNgaySinhDtp.Value;
             string email = khdEmailTxt.Text;
 
             using (SqlConnection sqlConn = new SqlConnection(conn))
             {
-                sqlConn.Open();
-                SqlCommand cmd = new SqlCommand("sp_SuaKhachHang", sqlConn);
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@MaKH", maKH);
-                cmd.Parameters.AddWithValue("@FullName", hoTen);
-                cmd.Parameters.AddWithValue("@Gender", gioiTinh);
-                cmd.Parameters.AddWithValue("@PhoneNumber", sdt);
-                cmd.Parameters.AddWithValue("@DateOfBirth", ngaySinh);
-                cmd.Parameters.AddWithValue("@Email", email);
+                try
+                {
+                    sqlConn.Open();
+                    SqlCommand cmd = new SqlCommand("sp_SuaKhachHang", sqlConn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@MaKH", maKH);
+                    cmd.Parameters.AddWithValue("@FullName", hoTen);
+                    cmd.Parameters.AddWithValue("@Gender", gioiTinh);
+                    cmd.Parameters.AddWithValue("@PhoneNumber", sdt);
+                    cmd.Parameters.AddWithValue("@DateOfBirth", ngaySinh);
+                    cmd.Parameters.AddWithValue("@Email", email);
 
-                cmd.ExecuteNonQuery();
-                MessageBox.Show("Sửa thông tin khách hàng thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Sửa thông tin khách hàng thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (SqlException ex)
+                {
+                    MessageBox.Show(ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
     }

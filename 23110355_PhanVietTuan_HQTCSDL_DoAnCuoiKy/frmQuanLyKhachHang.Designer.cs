@@ -86,7 +86,6 @@
             this.qlkhMaKHTxt.Name = "qlkhMaKHTxt";
             this.qlkhMaKHTxt.Size = new System.Drawing.Size(144, 22);
             this.qlkhMaKHTxt.TabIndex = 11;
-            this.qlkhMaKHTxt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label2
             // 

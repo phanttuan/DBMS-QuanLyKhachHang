@@ -107,7 +107,7 @@
             // 
             this.khdGioiTinhCmb.FormattingEnabled = true;
             this.khdGioiTinhCmb.Items.AddRange(new object[] {
-            "Nam ",
+            "Nam",
             "Nữ"});
             this.khdGioiTinhCmb.Location = new System.Drawing.Point(344, 79);
             this.khdGioiTinhCmb.Name = "khdGioiTinhCmb";

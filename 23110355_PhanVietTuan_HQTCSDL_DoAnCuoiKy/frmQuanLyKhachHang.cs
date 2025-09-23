@@ -90,14 +90,21 @@ namespace _23110355_PhanVietTuan_HQTCSDL_DoAnCuoiKy
             int maKH = Convert.ToInt32(qlkhDgv.SelectedRows[0].Cells["Mã KH"].Value);
             using (SqlConnection sqlConn = new SqlConnection(conn))
             {
-                sqlConn.Open();
-                SqlCommand cmd = new SqlCommand("sp_XoaKhachHang", sqlConn);
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@MaKH", maKH);
-                cmd.ExecuteNonQuery();
-                MessageBox.Show("Xóa khách hàng thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                try
+                {
+                    sqlConn.Open();
+                    SqlCommand cmd = new SqlCommand("sp_XoaKhachHang", sqlConn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@MaKH", maKH);
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Xóa khách hàng thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                LoadKhachHang();
+                    LoadKhachHang();
+                }
+                catch (SqlException ex)
+                {
+                    MessageBox.Show(ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
